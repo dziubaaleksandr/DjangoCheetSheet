@@ -31,9 +31,7 @@ class WomenHome(DataMixin, ListView):
     # def get_queryset(self): #Return list with elemts that meets the filter criteria
     #     return Women.objects.filter(is_published = True)
 
-
-    
-    
+  
 class WomenCategory(DataMixin, ListView):
     model = Category
     template_name = "women/women.html"
@@ -54,18 +52,23 @@ class WomenCategory(DataMixin, ListView):
     # def get_queryset(self) -> QuerySet[Any]:
     #     return Category.objects.all()
 
-class ShowPost(DetailView):
+class ShowPost(DataMixin, DetailView):
     model = Women
     template_name = "women/post.html"
     context_object_name = 'post'
     slug_url_kwarg = "post_slug" #specify the name of slug
-
+    #=============Without Mixin============
     def get_context_data(self, *, object_list=None, **kwargs):  #Passing static and dynamic data
         context = super().get_context_data(**kwargs)
-        # context['title'] = Women.objects.filter(slug = self.kwargs['post_slug'])[0]
-        context['title'] = context['post']
-        context['menu'] = menu
-        return context
+        c_def = self.get_user_context(title = 'post')
+        return dict(list(context.items()) + list(c_def.items()))
+    #=============Without Mixin============
+    # def get_context_data(self, *, object_list=None, **kwargs):  #Passing static and dynamic data
+    #     context = super().get_context_data(**kwargs)
+    #     # context['title'] = Women.objects.filter(slug = self.kwargs['post_slug'])[0]
+    #     context['title'] = context['post']
+    #     context['menu'] = menu
+    #     return context
 
 class AddPage(CreateView):
     form_class = AddPostFormRelatedWithDB
