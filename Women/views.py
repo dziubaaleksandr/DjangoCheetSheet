@@ -34,15 +34,22 @@ class WomenHome(DataMixin, ListView):
 
     
     
-class WomenCategory(ListView):
+class WomenCategory(DataMixin, ListView):
     model = Category
     template_name = "women/women.html"
     context_object_name = 'cats'
+    #=============Without Mixin============
     def get_context_data(self, *, object_list=None, **kwargs):  #Passing static and dynamic data
         context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context()
         context['women'] = Women.objects.filter(cat__slug = self.kwargs['cat_slug'], is_published = True)
-        context['menu'] = menu
-        return context
+        return {**context, **c_def}
+    #=============Without Mixin============
+    # def get_context_data(self, *, object_list=None, **kwargs):  #Passing static and dynamic data
+    #     context = super().get_context_data(**kwargs)
+    #     context['women'] = Women.objects.filter(cat__slug = self.kwargs['cat_slug'], is_published = True)
+    #     context['menu'] = menu
+    #     return context
     
     # def get_queryset(self) -> QuerySet[Any]:
     #     return Category.objects.all()
