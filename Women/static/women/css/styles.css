@@ -1,0 +1,30 @@
+body {
+	background-color: lightblue;
+}
+
+.detailInfoBtn {
+	background-color: #008CBA; /* Green */
+	border: none;
+	color: white;
+	padding: 10px 24px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+}
+
+
+.catBtn {
+	border-radius: 20px;
+	background-color: #1651c7; /* Green */
+	color: white;
+	padding: 10px 24px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+}
+
+.AddForm{
+	margin-left: 50px;
+}

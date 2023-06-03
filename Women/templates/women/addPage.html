@@ -1,0 +1,17 @@
+{%extends 'Women/base.html'%}
+
+{%block content%}
+<form action="{%url 'add page'%}" method="post" class = 'AddForm'> <!--We use method=post to passed data is not visible from the side-->
+    {% csrf_token %} <!--Protects data from csrf attacks-->
+    <!--    {{ form.as_p }}     --> <!--Functions to display form fields or use the for cycle as below-->
+
+
+    {{ form.non_field_errors }}<!--To display error that doesnt related to field error-->
+
+    {% for f in form %}
+    <p><label for="{{ f.id_for_label }}">{{ f.label }}:</label>{{ f }}</p>
+    {{ f.errors }}
+    {% endfor %}
+    <button tupe='submit'>Add</button>
+</form>
+{%endblock content%}

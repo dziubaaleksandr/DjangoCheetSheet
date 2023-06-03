@@ -1,0 +1,22 @@
+{%extends 'Women/base.html'%}
+
+{%block content%}
+<div class="d-flex gap-2 justify-content-center py-5">
+    <ul class="nav nav-pills"></ul>
+        <a class = "catBtn" href = "/women">All categories</a>
+        {%for c in cats%}
+        <a href = '{{ c.get_absolute_url }}' class = 'catBtn'>{{ c.name }}</a>
+        {%endfor%}
+    </ul>
+    
+</div>
+
+<ul>
+    {%for m in women%}
+    <h2>{{m.title}}</h2>
+    <p>{{m.content}}</p>
+    <a class = "detailInfoBtn" href = "{{ m.get_absolute_url }}">Detail Info</a>
+    <hr>
+    {%endfor%}
+</ul>
+{%endblock content%}
