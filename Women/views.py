@@ -31,7 +31,6 @@ class WomenHome(DataMixin, ListView):
     # def get_queryset(self): #Return list with elemts that meets the filter criteria
     #     return Women.objects.filter(is_published = True)
 
-  
 class WomenCategory(DataMixin, ListView):
     model = Category
     template_name = "women/women.html"
@@ -70,16 +69,15 @@ class ShowPost(DataMixin, DetailView):
     #     context['menu'] = menu
     #     return context
 
-class AddPage(CreateView):
+class AddPage(DataMixin, CreateView):
     form_class = AddPostFormRelatedWithDB
     template_name = 'women/addPage.html'
     #success_url = reverse_lazy('home') #We have to set this variable if we haven't got get_absolute_url in model or we want to redirect to url that is not listed in get_absolute_url
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
-        context['menu'] = menu
-        context['title'] = 'Add Post'
-        return context
+        c_def = self.get_user_context(title = 'Add Post')
+        return dict(list(context.items()) + list(c_def.items()))
     
     
 # Create your views here.
