@@ -7,22 +7,32 @@ from django.urls import reverse_lazy
 from .forms import AddPostForm, AddPostFormRelatedWithDB
 from .models import Women, Category
 from django.views.generic import ListView, DetailView, CreateView
+from .utils import *
+#menu = ['home', 'women', 'add page', 'about']
 
-menu = ['home', 'women', 'add page', 'about']
-
-class WomenHome(ListView):
+class WomenHome(DataMixin, ListView):
     model = Women #Select all records from the table and try to display them as a list
     template_name = 'women/index.html' #The path to the required html file 
     #context_object_name = 'posts' #Put list records from the table in posts 
     #extra_context = {'title': 'Home Page'} #Passing ONLY static data
+    #=============With Mixin============
     def get_context_data(self, *, object_list=None, **kwargs):  #Passing static and dynamic data
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Home Page'
-        context['menu'] = menu
-        return context
+        c_def = self.get_user_context(title = 'Home Page')
+        return dict(list(context.items()) + list(c_def.items()))
+    
+    #=============Without Mixin============
+    # def get_context_data(self, *, object_list=None, **kwargs):  #Passing static and dynamic data
+    #     context = super().get_context_data(**kwargs)
+    #     context['title'] = 'Home Page'
+    #     context['menu'] = menu
+    #     return context
 
     # def get_queryset(self): #Return list with elemts that meets the filter criteria
     #     return Women.objects.filter(is_published = True)
+
+
+    
     
 class WomenCategory(ListView):
     model = Category
