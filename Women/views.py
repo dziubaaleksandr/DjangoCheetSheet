@@ -3,6 +3,7 @@ from django.db.models.query import QuerySet
 from django.http import Http404, HttpResponse, HttpResponseNotFound
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .forms import AddPostForm, AddPostFormRelatedWithDB
 from .models import Women, Category
@@ -69,11 +70,11 @@ class ShowPost(DataMixin, DetailView):
     #     context['menu'] = menu
     #     return context
 
-class AddPage(DataMixin, CreateView):
+class AddPage(LoginRequiredMixin, DataMixin, CreateView):
     form_class = AddPostFormRelatedWithDB
     template_name = 'women/addPage.html'
     #success_url = reverse_lazy('home') #We have to set this variable if we haven't got get_absolute_url in model or we want to redirect to url that is not listed in get_absolute_url
-
+    login_url = '/admin/' #If the user is unautharised django redirect him to admin page
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
         c_def = self.get_user_context(title = 'Add Post')
