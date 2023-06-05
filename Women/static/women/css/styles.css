@@ -28,3 +28,28 @@ body {
 .AddForm{
 	margin-left: 50px;
 }
+
+.pagination {
+	margin: auto;
+	width: 50%;
+	padding: 10px;
+	padding-left: 180px;
+  }
+  
+.pagination a {
+	color: black;
+	float: left;
+	padding: 8px 16px;
+	text-decoration: none;
+  }
+
+#page_selected{
+	background-color: #008CBA;
+	}
+
+.pagination a:active {
+	background-color: #ffffff;
+	color: rgb(255, 255, 255);
+  }
+  
+.pagination a:hover:not(.active) {background-color: #008CBA;}

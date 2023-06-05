@@ -19,4 +19,17 @@
     <hr>
     {%endfor%}
 </ul>
+
+<div class="pagination">
+    <a href="#">&laquo;</a>
+    {% for p in paginator.page_range %}
+        {% if page_selected == p %}
+            <a id = 'page_selected' href="?page={{ p }}">{{p}}</a>
+        {% else %}
+            <a href="?page={{ p }}">{{p}}</a>
+        {% endif %}
+    {% endfor %}
+    <a href="#">&raquo;</a>
+  </div>
 {%endblock content%}
+
