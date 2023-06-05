@@ -3,7 +3,8 @@ from .views import *
 
 urlpatterns = [
     path('', WomenHome.as_view(), name = "home"),
-    path('women/', women, name = "women"),
+    # path('women/', women, name = "women"),
+    path('women/', ShowWomen.as_view(), name = "women"),
     path('about/', about, name = "about"),
     path('cats/<int:catId>/', categories),
     path('getTest/', get_test),

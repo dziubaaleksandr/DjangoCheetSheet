@@ -91,6 +91,17 @@ class AddPage(LoginRequiredMixin, DataMixin, CreateView):
 #         }
 #     return render(request, "women/index.html", context = context)
 
+class ShowWomen(DataMixin, ListView):
+    paginate_by = 3
+    model = Women
+    template_name = "women/women.html"
+    context_object_name = 'women'
+    def get_context_data(self, *, object_list=None, **kwargs):  #Passing static and dynamic data
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context()
+        context['cats'] = Category.objects.all()
+        return {**context, **c_def}
+
 def women(request):
     women = Women.objects.all()
     cats = Category.objects.all()
