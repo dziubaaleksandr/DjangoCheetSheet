@@ -20,9 +20,11 @@
     {%endfor%}
 </ul>
 
-{% if page_obj.has_other_pages%} <!-- Check if there are other pages display paginatation else not display -->
+{% if page_obj.has_other_pages %} <!-- Check if there are other pages display paginatation else not display -->
 <div class="pagination">
-    <a href="#">&laquo;</a>
+    {% if page_obj.has_previous %}
+    <a href="?page={{ page_obj.previous_page_number }}">&laquo;</a>
+    {% endif %}
     {% for p in paginator.page_range %}
     {#<!-- {% if page_selected == p %} --> <!-- Does the same as the code below --> #}
         {% if page_obj.number == p %}
@@ -33,7 +35,9 @@
         {#<!--<a href="?page={{ p }}">{{p}}</a>-->#}  <!-- Display all pages range -->
         {% endif %}
     {% endfor %}
-    <a href="#">&raquo;</a>
+    {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}">&raquo;</a>
+    {% endif %}
 </div>
 {% endif %}
 {%endblock content%}
