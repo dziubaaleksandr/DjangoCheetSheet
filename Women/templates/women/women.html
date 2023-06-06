@@ -20,15 +20,17 @@
     {%endfor%}
 </ul>
 
-{% if page_obj.has_other_pages%} <!-- Check if there are other pages disply paginatation else not display -->
+{% if page_obj.has_other_pages%} <!-- Check if there are other pages display paginatation else not display -->
 <div class="pagination">
     <a href="#">&laquo;</a>
     {% for p in paginator.page_range %}
     {#<!-- {% if page_selected == p %} --> <!-- Does the same as the code below --> #}
         {% if page_obj.number == p %}
             <a id = 'page_selected' href="?page={{ p }}">{{p}}</a>
-        {% else %}
+        {% elif p >= page_obj.number|add:-2 and p <= page_obj.number|add:2 %}  <!-- Display the selected page plus and minus 2 page -->
             <a href="?page={{ p }}">{{p}}</a>
+        {#<!--{% else %}-->#}
+        {#<!--<a href="?page={{ p }}">{{p}}</a>-->#}  <!-- Display all pages range -->
         {% endif %}
     {% endfor %}
     <a href="#">&raquo;</a>
