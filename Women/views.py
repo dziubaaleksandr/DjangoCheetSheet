@@ -50,7 +50,7 @@ class WomenCategory(DataMixin, ListView):
     #     return context
     
     def get_queryset(self) -> QuerySet[Any]:
-        return Women.objects.filter(cat__slug = self.kwargs['cat_slug'], is_published = True)
+        return Women.objects.filter(cat__slug = self.kwargs['cat_slug'], is_published = True).select_related('cat')
 
 class ShowPost(DataMixin, DetailView):
     model = Women
@@ -100,6 +100,8 @@ class ShowWomen(DataMixin, ListView):
         c_def = self.get_user_context()
         context['cats'] = Category.objects.all()
         return {**context, **c_def}
+    def get_queryset(self) -> QuerySet[Any]:
+        return Women.objects.all().select_related('cat')
 
 def women(request):
     women = Women.objects.all()

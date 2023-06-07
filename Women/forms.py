@@ -10,7 +10,7 @@ class AddPostForm(forms.Form): #Not related with db
     cat = forms.ModelChoiceField(queryset=Category.objects.all(), empty_label="Category not selected")
 
 
-class AddPostFormRelatedWithDB(forms.ModelForm): #Not related with db
+class AddPostFormRelatedWithDB(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['cat'].empty_label = "Category not selected"
