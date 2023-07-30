@@ -13,7 +13,7 @@ from .utils import *
 
 class WomenHome(DataMixin, ListView):
     model = Women #Select all records from the table and try to display them as a list
-    template_name = 'women/index.html' #The path to the required html file 
+    template_name = 'Women/index.html' #The path to the required html file 
     #context_object_name = 'posts' #Put list records from the table in posts 
     #extra_context = {'title': 'Home Page'} #Passing ONLY static data
     #=============With Mixin============
@@ -34,7 +34,7 @@ class WomenHome(DataMixin, ListView):
 
 class WomenCategory(DataMixin, ListView):
     model = Category
-    template_name = "women/women.html"
+    template_name = "Women/women.html"
     context_object_name = 'women'
     #=============Without Mixin============
     def get_context_data(self, *, object_list=None, **kwargs):  #Passing static and dynamic data
@@ -54,7 +54,7 @@ class WomenCategory(DataMixin, ListView):
 
 class ShowPost(DataMixin, DetailView):
     model = Women
-    template_name = "women/post.html"
+    template_name = "Women/post.html"
     context_object_name = 'post'
     slug_url_kwarg = "post_slug" #specify the name of slug
     #=============Without Mixin============
@@ -72,7 +72,7 @@ class ShowPost(DataMixin, DetailView):
 
 class AddPage(LoginRequiredMixin, DataMixin, CreateView):
     form_class = AddPostFormRelatedWithDB
-    template_name = 'women/addPage.html'
+    template_name = 'Women/addPage.html'
     #success_url = reverse_lazy('home') #We have to set this variable if we haven't got get_absolute_url in model or we want to redirect to url that is not listed in get_absolute_url
     login_url = '/admin/' #If the user is unautharised django redirect him to admin page
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
@@ -89,11 +89,11 @@ class AddPage(LoginRequiredMixin, DataMixin, CreateView):
 #         'menu': menu,
 #         'title': "Home Page",
 #         }
-#     return render(request, "women/index.html", context = context)
+#     return render(request, "Women/index.html", context = context)
 
 class ShowWomen(DataMixin, ListView):
     model = Women
-    template_name = "women/women.html"
+    template_name = "Women/women.html"
     context_object_name = 'women'
     def get_context_data(self, *, object_list=None, **kwargs):  #Passing static and dynamic data
         context = super().get_context_data(**kwargs)
@@ -106,7 +106,7 @@ class ShowWomen(DataMixin, ListView):
 def women(request):
     women = Women.objects.all()
     cats = Category.objects.all()
-    return render(request, 'women/women.html', {'women': women, 'menu': menu, 'cats': cats})
+    return render(request, 'Women/women.html', {'women': women, 'menu': menu, 'cats': cats})
 
 # def show_post(request, post_slug):
 #     post = get_object_or_404(Women, slug = post_slug) #We are taking the record from Women model with slug equal to post_slug. If there isn't such record it raises 404 error
@@ -115,12 +115,12 @@ def women(request):
 #         'title': post.title,
 #         'menu': menu
 #         }
-#     return render(request, 'women/post.html', context= context)
+#     return render(request, 'Women/post.html', context= context)
 
 # def show_category(request, category_id):
 #     women = Women.objects.filter(cat_id = category_id)
 #     cats = Category.objects.all()
-#     return render(request, 'women/women.html', {'women': women, 'menu': menu, 'cats': cats})
+#     return render(request, 'Women/women.html', {'women': women, 'menu': menu, 'cats': cats})
 
 def add_page(request):
     if request.method == 'POST':
@@ -135,7 +135,7 @@ def add_page(request):
                 form.add_error(None, "Add post error") #If an error occurs at the time of adding the new record to db. To display this error we shoild use form.non_filed_errors in html file
     else:
         form = AddPostForm()
-    return render(request, 'women/addPage.html', {'menu': menu, 'form': form})
+    return render(request, 'Women/addPage.html', {'menu': menu, 'form': form})
 
 # def add_page_related_with_db(request):
 #     if request.method == 'POST': #Check has the customer already posted the data
@@ -147,7 +147,7 @@ def add_page(request):
 #             return redirect('home')
 #     else:
 #         form = AddPostFormRelatedWithDB()
-#     return render(request, 'women/addPage.html', {'menu': menu, 'form': form})
+#     return render(request, 'Women/addPage.html', {'menu': menu, 'form': form})
 
 def about(request):
     return HttpResponse("<h1>About</h1>")
